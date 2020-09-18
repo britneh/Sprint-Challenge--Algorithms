@@ -96,8 +96,46 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        #UNDERSTAND: We have a robot that essentially is acting as a pointer/mover. It receives a list.
+        #At each position the robot is facing a different item that has a value. 
+        #it can move left or right, hold or swap an item
+        #it can also compare items it's holding to the item at its current position 
+        #It also has a light - but why though? 
+        #when given a list we want the robot to return the list sorted 
+        #So a list for a list 
+
+        #PLAN: We will start the robot at position one.  This is going to be 
+        #an iterative sort because its receiving an unsorted list. 
+        #do i need the light?
+        #If we start the robot at position one and there's nothing to move to then there is 
+        #only one item in the list so nothing to sort
+        #if it's not the only item then we move right (since we're going left to right) -- function
+        #once we get to the next one now we want to see if they are in the right order using the compare
+        
+        #compare uses numbers to indicate the relationship so we will use the numbers from the return
+        #every time the new position item is less we will swap. so everytime the compare is 1
+        #if it is -1 they are in the right order 
+        #now I'm thinking more of a bubble sort because we're actually able to compare and swap 
+        #so we continue moving right until can move right is False indicating we are at the end
+        #once at the end we now check to move left to move back to the beginning and then start all
+        #over again until all of the items are sorted 
+        if self.can_move_right == False:
+            return self._list
+
+        while self.can_move_right == True:
+            self.move_right()
+            if self.compare_item() == 1:
+                self.swap_item() 
+        
+        while self.can_move_left() == True:
+            self.move_left()
+
+            if self.can_move_right == True:
+                self.move_right()
+                if self.compare_item() == 1:
+                    self.swap_item()
+            else:
+                self._list
 
 
 if __name__ == "__main__":
