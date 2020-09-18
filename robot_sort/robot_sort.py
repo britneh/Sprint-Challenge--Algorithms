@@ -106,7 +106,7 @@ class SortingRobot:
 
         #PLAN: We will start the robot at position one.  This is going to be 
         #an iterative sort because its receiving an unsorted list. 
-        #do i need the light?
+        #do i need the light? -- maybe to indicate whether the robot is sorting 
         #If we start the robot at position one and there's nothing to move to then there is 
         #only one item in the list so nothing to sort
         #if it's not the only item then we move right (since we're going left to right) -- function
@@ -119,10 +119,12 @@ class SortingRobot:
         #so we continue moving right until can move right is False indicating we are at the end
         #once at the end we now check to move left to move back to the beginning and then start all
         #over again until all of the items are sorted 
-        if self.can_move_right == False:
-            return self._list
+        self.set_light_on()
+        
+        if self.can_move_right() == False:
+            self.set_light_off()
 
-        while self.can_move_right == True:
+        while self.can_move_right() == True:
             self.move_right()
             if self.compare_item() == 1:
                 self.swap_item() 
@@ -130,12 +132,13 @@ class SortingRobot:
         while self.can_move_left() == True:
             self.move_left()
 
-            if self.can_move_right == True:
+            if self.can_move_right:
                 self.move_right()
                 if self.compare_item() == 1:
-                    self.swap_item()
+                    self.swap_item() 
             else:
-                self._list
+                self.set_light_off()
+        return self._list
 
 
 if __name__ == "__main__":
